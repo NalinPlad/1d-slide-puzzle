@@ -3,6 +3,7 @@ use termion::event::Key;
 use termion::input::TermRead;
 use termion::raw::IntoRawMode;
 use std::process;
+use rand::distributions::{Distribution, Uniform};
 
 fn swap(inp: &[i8; 6], mv: i8) -> [i8; 6] {    
     match mv {
@@ -26,6 +27,8 @@ fn swap(inp: &[i8; 6], mv: i8) -> [i8; 6] {
     }
 }
 
+
+
 fn main() {
     let mut cube: [i8; 6] = [1,2,3,4,5,6];
 
@@ -33,24 +36,7 @@ fn main() {
     //setting up stdout and going into raw mode
     let mut stdout = stdout().into_raw_mode().unwrap();
 
-    write!(stdout, r#"{}{}1,2,3 to swap keys. 
-    (text from https://code.jsoftware.com/wiki/Scripts/1D_Rubik%27s_Cube)
-    1D Rubik's Cube is a line of 6 numbers with
-    original position:
-   
-      1 2 3 4 5 6
-   
-    which can be rotated in 3 different ways
-    in groups of four:
-        _______                _______
-       (1 2 3 4)5 6  --(0)->  (4 3 2 1)5 6
-          _______                _______
-        1(2 3 4 5)6  --(1)->   1(5 4 3 2)6
-            _______                _______
-        1 2(3 4 5 6) --(2)->   1 2(6 5 4 3)
-    
-    
-    "#, termion::cursor::Goto(1, 1), termion::clear::All)
+    write!(stdout, r#"{}{}1,2,3 to swap keys. CTRL-S to (s)cramble. CTRL-C to exit. Press enter to start"#, termion::cursor::Goto(1, 1), termion::clear::All)
             .unwrap();
     stdout.flush().unwrap();
 
@@ -70,7 +56,23 @@ fn main() {
             Key::Char('1') => cube = swap(&cube,0),
             Key::Char('2') => cube = swap(&cube,1),
             Key::Char('3') => cube = swap(&cube,2),
-            Key::Ctrl('c') => process::exit(0),
+
+            Key::Ctrl('c') => process::exit(0), // Exit
+            Key::Ctrl('s') => {
+                let between = Uniform::from(0 .. 3);
+                let mut rng = rand::thread_rng();
+
+                for _c in 1 .. 10000{
+                    let throw = between.sample(&mut rng);
+                    
+                    match throw {
+                        0 => cube = swap(&cube,0),
+                        1 => cube = swap(&cube,1),
+                        2 => cube = swap(&cube,2),
+                        i32::MIN..=-1_i32 | 3_i32..=i32::MAX => todo!()
+                    }
+                }
+            }, // Scramble
             _ => (),
         }
         for key in cube {
