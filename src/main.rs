@@ -80,22 +80,5 @@ fn main() {
         }
         stdout.flush().unwrap();
     }
-        
-
-
-    // let mut input = String::new();
-    // std::io::stdin().read_line(&mut input).unwrap();
-
-    // match input.trim() {
-    //     "1" => cube = swap(&cube,0),
-    //     "2" => cube = swap(&cube,1),
-    //     "3" => cube = swap(&cube,2),
-    //     _ => println!("Invalid Input")
-    // }
-    // for key in cube {
-    //     print!("| {key} |");
-    // }
-    // stdout().flush().unwrap();
-    
 
 }
