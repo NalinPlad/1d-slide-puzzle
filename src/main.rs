@@ -35,8 +35,8 @@ fn swap(inp: &[i8; 6], mv: i8) -> [i8; 6] {
 
 fn main() {
     let mut cube: [i8; 6] = [1,2,3,4,5,6];
-    let mut time: f64 = 0.0;
-    let mut should_tick: bool = false;
+    let mut moves: i64 = 0;
+
     // 123564 -> 1 2
     // 561234 -> 
 
@@ -64,9 +64,9 @@ fn main() {
         .unwrap();
 
         match c.unwrap() {
-            Key::Char('1') => cube = swap(&cube,0),
-            Key::Char('2') => cube = swap(&cube,1),
-            Key::Char('3') => cube = swap(&cube,2),
+            Key::Char('1') => {cube = swap(&cube,0); moves += 1;},
+            Key::Char('2') => {cube = swap(&cube,1); moves += 1;},
+            Key::Char('3') => {cube = swap(&cube,2); moves += 1;},
 
             Key::Ctrl('c') => {
                 write!(stdout, r#"{}"#, termion::cursor::Show).unwrap();
@@ -87,10 +87,18 @@ fn main() {
                         i32::MIN..=-1_i32 | 3_i32..=i32::MAX => todo!()
                     }
                 }
+
+                moves = 0;
             },
             _ => (),
         }
-        println!("TIME: {}", time);
+        if moves < 10 {
+            print!("MOVES: {} ", moves.to_string().green());
+        } else if moves < 25 {
+            print!("MOVES: {} ", moves.to_string().yellow());
+        } else {
+            print!("MOVES: {} ", moves.to_string().red());
+        }
         for key in cube {
             match key {
                 1 => print!("{}{}{}","  ".to_string().on_yellow() ,key.to_string().on_yellow().black(), "  ".to_string().on_yellow()),
@@ -103,6 +111,6 @@ fn main() {
             }
         }
         stdout.flush().unwrap();
-    }
+}
 
 }
