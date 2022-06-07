@@ -9,7 +9,7 @@ use rand::distributions::{Distribution, Uniform};
 use colored::*;
 
 
-fn swap(inp: &[i8; 6], mv: i8) -> [i8; 6] {    
+fn swap(inp: &[i8; 6], mv: i8) -> [i8; 6] {
     match mv {
         // def = [0,1,2,3,4,5]
         0 => {
@@ -35,6 +35,8 @@ fn swap(inp: &[i8; 6], mv: i8) -> [i8; 6] {
 
 fn main() {
     let mut cube: [i8; 6] = [1,2,3,4,5,6];
+    let mut time: f64 = 0.0;
+    let mut should_tick: bool = false;
     // 123564 -> 1 2
     // 561234 -> 
 
@@ -88,6 +90,7 @@ fn main() {
             },
             _ => (),
         }
+        println!("TIME: {}", time);
         for key in cube {
             match key {
                 1 => print!("{}{}{}","  ".to_string().on_yellow() ,key.to_string().on_yellow().black(), "  ".to_string().on_yellow()),
