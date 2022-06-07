@@ -34,7 +34,7 @@ fn swap(inp: &[i8; 6], mv: i8) -> [i8; 6] {
 
 
 fn main() {
-    let mut cube: [i8; 6] = [1,2,3,5,6,4];
+    let mut cube: [i8; 6] = [1,2,3,4,5,6];
     // 123564 -> 1 2
     // 561234 -> 
 
@@ -90,12 +90,12 @@ fn main() {
         }
         for key in cube {
             match key {
-                1 => print!("{}{}{}"," ".to_string().on_yellow() ,key.to_string().on_yellow().black().bold(), " ".to_string().on_yellow()),
-                2 => print!("{}{}{}"," ".to_string().on_green() ,key.to_string().on_green().black().bold(), " ".to_string().on_green()),
-                3 => print!("{}{}{}"," ".to_string().on_cyan() ,key.to_string().on_cyan().black().bold(), " ".to_string().on_cyan()),
-                4 => print!("{}{}{}"," ".to_string().on_blue() ,key.to_string().on_blue().black().bold(), " ".to_string().on_blue()),
-                5 => print!("{}{}{}"," ".to_string().on_magenta() ,key.to_string().on_magenta().black().bold(), " ".to_string().on_magenta()),
-                6 => print!("{}{}{}"," ".to_string().on_red() ,key.to_string().on_red().black().bold(), " ".to_string().on_red()),
+                1 => print!("{}{}{}"," ".to_string().on_yellow() ,key.to_string().on_yellow().black(), " ".to_string().on_yellow()),
+                2 => print!("{}{}{}"," ".to_string().on_green() ,key.to_string().on_green().black(), " ".to_string().on_green()),
+                3 => print!("{}{}{}"," ".to_string().on_cyan() ,key.to_string().on_cyan().black(), " ".to_string().on_cyan()),
+                4 => print!("{}{}{}"," ".to_string().on_blue() ,key.to_string().on_blue().black(), " ".to_string().on_blue()),
+                5 => print!("{}{}{}"," ".to_string().on_magenta() ,key.to_string().on_magenta().black(), " ".to_string().on_magenta()),
+                6 => print!("{}{}{}"," ".to_string().on_red() ,key.to_string().on_red().black(), " ".to_string().on_red()),
                 _ => ()
             }
         }
