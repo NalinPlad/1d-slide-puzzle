@@ -34,13 +34,18 @@ fn swap(inp: &[i8; 6], mv: i8) -> [i8; 6] {
 
 
 fn main() {
-    let mut cube: [i8; 6] = [1,2,3,4,5,6];
+    let mut cube: [i8; 6] = [1,2,3,5,6,4];
+    // 123564 -> 1 2
+    // 561234 -> 
 
     let stdin = stdin();
     //setting up stdout and going into raw mode
     let mut stdout = stdout().into_raw_mode().unwrap();
 
-    write!(stdout, r#"{}{}{}1,2,3 to swap keys. CTRL-S to (s)cramble. CTRL-C to exit. Press enter to start"#, termion::cursor::Hide, termion::cursor::Goto(1, 1), termion::clear::All)
+    write!(stdout, r#"{}{}{}1,2,3 to swap keys. CTRL-S to (s)cramble. CTRL-C to exit. Press enter to start"#,
+     termion::cursor::Hide,
+      termion::cursor::Goto(1, 1),
+       termion::clear::All)
             .unwrap();
     stdout.flush().unwrap();
 
@@ -85,13 +90,13 @@ fn main() {
         }
         for key in cube {
             match key {
-                1 => print!("{}{}{}"," ".to_string().on_red() ,key.to_string().on_red(), " ".to_string().on_red()),
-                2 => print!("{}{}{}"," ".to_string().on_green() ,key.to_string().on_green(), " ".to_string().on_green()),
-                3 => print!("{}{}{}"," ".to_string().on_yellow() ,key.to_string().on_yellow(), " ".to_string().on_yellow()),
-                4 => print!("{}{}{}"," ".to_string().on_cyan() ,key.to_string().on_cyan(), " ".to_string().on_cyan()),
-                5 => print!("{}{}{}"," ".to_string().on_blue() ,key.to_string().on_blue(), " ".to_string().on_blue()),
-                6 => print!("{}{}{}"," ".to_string().on_magenta() ,key.to_string().on_magenta(), " ".to_string().on_magenta()),
-                i8::MIN..=0_i8 | 6_i8..=i8::MAX => todo!()
+                1 => print!("{}{}{}"," ".to_string().on_yellow() ,key.to_string().on_yellow().black().bold(), " ".to_string().on_yellow()),
+                2 => print!("{}{}{}"," ".to_string().on_green() ,key.to_string().on_green().black().bold(), " ".to_string().on_green()),
+                3 => print!("{}{}{}"," ".to_string().on_cyan() ,key.to_string().on_cyan().black().bold(), " ".to_string().on_cyan()),
+                4 => print!("{}{}{}"," ".to_string().on_blue() ,key.to_string().on_blue().black().bold(), " ".to_string().on_blue()),
+                5 => print!("{}{}{}"," ".to_string().on_magenta() ,key.to_string().on_magenta().black().bold(), " ".to_string().on_magenta()),
+                6 => print!("{}{}{}"," ".to_string().on_red() ,key.to_string().on_red().black().bold(), " ".to_string().on_red()),
+                _ => ()
             }
         }
         stdout.flush().unwrap();
