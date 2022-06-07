@@ -67,7 +67,7 @@ fn main() {
             Key::Char('3') => cube = swap(&cube,2),
 
             Key::Ctrl('c') => {
-                write!(stdout, r#"{}"#, termion::cursor::Show);
+                write!(stdout, r#"{}"#, termion::cursor::Show).unwrap();
                 process::exit(0);
             }, // Exit
             Key::Ctrl('s') => {
@@ -90,12 +90,12 @@ fn main() {
         }
         for key in cube {
             match key {
-                1 => print!("{}{}{}"," ".to_string().on_yellow() ,key.to_string().on_yellow().black(), " ".to_string().on_yellow()),
-                2 => print!("{}{}{}"," ".to_string().on_green() ,key.to_string().on_green().black(), " ".to_string().on_green()),
-                3 => print!("{}{}{}"," ".to_string().on_cyan() ,key.to_string().on_cyan().black(), " ".to_string().on_cyan()),
-                4 => print!("{}{}{}"," ".to_string().on_blue() ,key.to_string().on_blue().black(), " ".to_string().on_blue()),
-                5 => print!("{}{}{}"," ".to_string().on_magenta() ,key.to_string().on_magenta().black(), " ".to_string().on_magenta()),
-                6 => print!("{}{}{}"," ".to_string().on_red() ,key.to_string().on_red().black(), " ".to_string().on_red()),
+                1 => print!("{}{}{}","  ".to_string().on_yellow() ,key.to_string().on_yellow().black(), "  ".to_string().on_yellow()),
+                2 => print!("{}{}{}","  ".to_string().on_green() ,key.to_string().on_green().black(), "  ".to_string().on_green()),
+                3 => print!("{}{}{}","  ".to_string().on_cyan() ,key.to_string().on_cyan().black(), "  ".to_string().on_cyan()),
+                4 => print!("{}{}{}","  ".to_string().on_blue() ,key.to_string().on_blue().black(), "  ".to_string().on_blue()),
+                5 => print!("{}{}{}","  ".to_string().on_magenta() ,key.to_string().on_magenta().black(), "  ".to_string().on_magenta()),
+                6 => print!("{}{}{}","  ".to_string().on_red() ,key.to_string().on_red().black(), "  ".to_string().on_red()),
                 _ => ()
             }
         }
