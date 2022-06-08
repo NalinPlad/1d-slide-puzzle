@@ -40,6 +40,8 @@ fn main() {
     let mut cube: [i8; 6] = [1,2,3,4,5,6];
     let mut moves: i64 = 0;
 
+    let mut can_solve: bool = false;
+
     // Palette
     let red = RGB8::new(255, 102, 99);
     let orange = RGB8::new(254, 177, 68);
@@ -48,9 +50,6 @@ fn main() {
     let blue = RGB8::new(158, 193, 207);
     let violet = RGB8::new(204, 153, 201);
     let black = RGB8::new(0, 0, 0);
-    
-    // 123564 -> 1 2
-    // 561234 -> 
 
     let stdin = stdin();
     //setting up stdout and going into raw mode
@@ -89,7 +88,7 @@ fn main() {
                 let mut rng = rand::thread_rng();
 
                 // Scramble
-                for _c in 1 .. 10000{
+                for _c in 1 .. 3{
                     let throw = between.sample(&mut rng);
                     
                     match throw {
@@ -100,21 +99,36 @@ fn main() {
                     }
                 }
 
+                can_solve = true;
                 moves = 0;
             },
             _ => (),
         }
-        if moves < 10 {
-            print!("MOVES: {} ", moves.to_string().fg(green));
-        } else if moves < 25 {
-            print!("MOVES: {} ", moves.to_string().fg(yellow));
+        if can_solve && cube == [1,2,3,4,5,6]{
+            if moves < 10 {
+                write!(stdout,r#"SOLVED: {} MOVES!"#, moves.to_string().fg(green)).unwrap();
+            } else if moves < 25 {
+                write!(stdout,r#"SOLVED: {} MOVES!"#, moves.to_string().fg(yellow)).unwrap();
+            } else {
+                write!(stdout,r#"SOLVED: {} MOVES!"#, moves.to_string().fg(red)).unwrap();
+            }
+            stdout.flush().unwrap();
+            can_solve = false;
+            moves = 0;
         } else {
-            print!("MOVES: {} ", moves.to_string().fg(red));
+            if moves < 10 {
+                print!("MOVES: {} ", moves.to_string().fg(green));
+            } else if moves < 25 {
+                print!("MOVES: {} ", moves.to_string().fg(yellow));
+            } else {
+                print!("MOVES: {} ", moves.to_string().fg(red));
+            }
         }
 
 
+
         for key in cube {
-            match key { //rycbmg
+            match key {
                 1 => print!("{}{}{}","  ".to_string().bg(red) ,key.to_string().bg(red).fg(black), "  ".to_string().bg(red)),
                 2 => print!("{}{}{}","  ".to_string().bg(orange) ,key.to_string().bg(orange).fg(black), "  ".to_string().bg(orange)),
                 3 => print!("{}{}{}","  ".to_string().bg(yellow) ,key.to_string().bg(yellow).fg(black), "  ".to_string().bg(yellow)),
