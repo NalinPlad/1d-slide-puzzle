@@ -8,4 +8,6 @@ edition = "2021"
 [dependencies]
 termion = "1.5.6" # Detect key presses
 rand = "0.6.5" # Scramble
+rgb = "0.8" # Colors
+ansi_rgb = "0.2.0" # Colors
 colored = "2.0.0" # Term colors

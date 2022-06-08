@@ -1,4 +1,6 @@
 extern crate colored;
+extern crate rgb;
+extern crate ansi_rgb;
 
 use std::io::{stdin, stdout, Write};
 use termion::event::Key;
@@ -7,6 +9,8 @@ use termion::raw::IntoRawMode;
 use std::process;
 use rand::distributions::{Distribution, Uniform};
 use colored::*;
+use ansi_rgb::{ Foreground, Background };
+use rgb::RGB8;
 
 
 fn swap(inp: &[i8; 6], mv: i8) -> [i8; 6] {
@@ -37,6 +41,15 @@ fn main() {
     let mut cube: [i8; 6] = [1,2,3,4,5,6];
     let mut moves: i64 = 0;
 
+    // Palette
+    let red = RGB8::new(255, 102, 99);
+    let orange = RGB8::new(254, 177, 68);
+    let yellow = RGB8::new(253, 253, 151);
+    let green = RGB8::new(158, 224, 158);
+    let blue = RGB8::new(158, 193, 207);
+    let violet = RGB8::new(204, 153, 201);
+    let black = RGB8::new(0, 0, 0);
+    
     // 123564 -> 1 2
     // 561234 -> 
 
@@ -44,7 +57,7 @@ fn main() {
     //setting up stdout and going into raw mode
     let mut stdout = stdout().into_raw_mode().unwrap();
 
-    write!(stdout, r#"{}{}{}1,2,3 to swap keys. CTRL-S to (s)cramble. CTRL-C to exit. Press enter to start"#,
+    write!(stdout, r#"{}{}{}1,2,3 to swap keys. CTRL-S to (s)cramble. CTRL-C to ex(c)it. Press ENTER to start"#,
      termion::cursor::Hide,
       termion::cursor::Goto(1, 1),
        termion::clear::All)
@@ -93,20 +106,22 @@ fn main() {
             _ => (),
         }
         if moves < 10 {
-            print!("MOVES: {} ", moves.to_string().green());
+            print!("MOVES: {} ", moves.to_string().fg(green));
         } else if moves < 25 {
-            print!("MOVES: {} ", moves.to_string().yellow());
+            print!("MOVES: {} ", moves.to_string().fg(yellow));
         } else {
-            print!("MOVES: {} ", moves.to_string().red());
+            print!("MOVES: {} ", moves.to_string().fg(red));
         }
+
+
         for key in cube {
-            match key {
-                1 => print!("{}{}{}","  ".to_string().on_yellow() ,key.to_string().on_yellow().black(), "  ".to_string().on_yellow()),
-                2 => print!("{}{}{}","  ".to_string().on_green() ,key.to_string().on_green().black(), "  ".to_string().on_green()),
-                3 => print!("{}{}{}","  ".to_string().on_cyan() ,key.to_string().on_cyan().black(), "  ".to_string().on_cyan()),
-                4 => print!("{}{}{}","  ".to_string().on_blue() ,key.to_string().on_blue().black(), "  ".to_string().on_blue()),
-                5 => print!("{}{}{}","  ".to_string().on_magenta() ,key.to_string().on_magenta().black(), "  ".to_string().on_magenta()),
-                6 => print!("{}{}{}","  ".to_string().on_red() ,key.to_string().on_red().black(), "  ".to_string().on_red()),
+            match key { //rycbmg
+                1 => print!("{}{}{}","  ".to_string().bg(red) ,key.to_string().bg(red).fg(black), "  ".to_string().bg(red)),
+                2 => print!("{}{}{}","  ".to_string().bg(orange) ,key.to_string().bg(orange).fg(black), "  ".to_string().bg(orange)),
+                3 => print!("{}{}{}","  ".to_string().bg(yellow) ,key.to_string().bg(yellow).fg(black), "  ".to_string().bg(yellow)),
+                4 => print!("{}{}{}","  ".to_string().bg(green) ,key.to_string().bg(green).fg(black), "  ".to_string().bg(green)),
+                5 => print!("{}{}{}","  ".to_string().bg(blue) ,key.to_string().bg(blue).fg(black), "  ".to_string().bg(blue)),
+                6 => print!("{}{}{}","  ".to_string().bg(violet) ,key.to_string().bg(violet).fg(black), "  ".to_string().bg(violet)),
                 _ => ()
             }
         }
