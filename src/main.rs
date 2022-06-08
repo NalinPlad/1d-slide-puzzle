@@ -8,7 +8,6 @@ use termion::input::TermRead;
 use termion::raw::IntoRawMode;
 use std::process;
 use rand::distributions::{Distribution, Uniform};
-use colored::*;
 use ansi_rgb::{ Foreground, Background };
 use rgb::RGB8;
 
