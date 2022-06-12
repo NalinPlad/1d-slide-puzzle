@@ -92,8 +92,8 @@ fn main() {
                 let between = Uniform::from(0..3);
                 let mut rng = rand::thread_rng();
 
-                // Scramble
-                for _c in 1..3 {
+                // Scramble cube
+                for _c in 1..100 {
                     let throw = between.sample(&mut rng);
                     match throw {
                         0 => cube = swap(&cube, 0),
